@@ -1,0 +1,60 @@
+// Get the elements
+const createCommunityForm = document.getElementById("create-community-form");
+const communityNameInput = document.getElementById("community-name");
+const communityDescriptionInput = document.getElementById("community-description");
+const communityList = document.getElementById("community-list");
+
+// Load communities from localStorage
+window.onload = function() {
+    const communities = JSON.parse(localStorage.getItem("communities")) || [];
+    displayCommunities(communities);
+};
+
+// Display communities
+function displayCommunities(communities) {
+    communityList.innerHTML = '';  // Clear the list first
+
+    communities.forEach(community => {
+        const communityElement = document.createElement("div");
+        communityElement.classList.add("community-card");
+        communityElement.innerHTML = `
+            <h4>${community.name}</h4>
+            <p>${community.description}</p>
+            <button onclick="joinCommunity('${community.name}')">Join</button>
+        `;
+        communityList.appendChild(communityElement);
+    });
+}
+
+// Handle community creation
+createCommunityForm.addEventListener("submit", function(event) {
+    event.preventDefault();
+
+    const communityName = communityNameInput.value.trim();
+    const communityDescription = communityDescriptionInput.value.trim();
+
+    if (communityName && communityDescription) {
+        const communities = JSON.parse(localStorage.getItem("communities")) || [];
+        
+        // Add new community to the communities array
+        const newCommunity = {
+            name: communityName,
+            description: communityDescription
+        };
+
+        communities.push(newCommunity);
+
+        // Save the communities array to localStorage
+        localStorage.setItem("communities", JSON.stringify(communities));
+
+        // Reset the form and display the updated list
+        communityNameInput.value = "";
+        communityDescriptionInput.value = "";
+        displayCommunities(communities);
+    }
+});
+
+// Handle joining a community
+function joinCommunity(communityName) {
+    alert(`You have joined the community: ${communityName}`);
+}
