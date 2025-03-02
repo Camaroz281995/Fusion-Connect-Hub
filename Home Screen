@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fusion Connect</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <nav>
+            <div class="logo">
+                <h1>Fusion Connect</h1>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#features">Features</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="hero">
+        <h2>Welcome to Fusion Connect</h2>
+        <p>Your platform to connect, share, and grow with others</p>
+        <a href="#features" class="cta-btn">Discover More</a>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features">
+        <h2>Features</h2>
+        <div class="feature-item">
+            <h3>Direct Messaging</h3>
+            <p>Communicate one-on-one or in groups with friends and colleagues.</p>
+        </div>
+        <div class="feature-item">
+            <h3>Post and Share</h3>
+            <p>Share your moments and updates with your community.</p>
+        </div>
+        <div class="feature-item">
+            <h3>Customization</h3>
+            <p>Make your profile unique with customizable settings.</p>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+        <h2>About Us</h2>
+        <p>Fusion Connect is a social media platform designed for people to connect, share, and grow together. We focus on creating a safe and engaging community where you can be yourself.</p>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <h2>Contact Us</h2>
+        <form>
+            <input type="text" name="name" placeholder="Your Name" required><br>
+            <input type="email" name="email" placeholder="Your Email" required><br>
+            <textarea name="message" placeholder="Your Message" required></textarea><br>
+            <button type="submit">Send Message</button>
+        </form>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 Fusion Connect | All Rights Reserved</p>
+    </footer>
+</body>
+</html>
