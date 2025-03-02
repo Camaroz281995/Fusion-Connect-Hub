@@ -1,0 +1,50 @@
+// Get the elements
+const postForm = document.getElementById("post-form");
+const postContent = document.getElementById("post-content");
+const postList = document.getElementById("post-list");
+
+// Load posts from localStorage
+window.onload = function() {
+    const posts = JSON.parse(localStorage.getItem("posts")) || [];
+    displayPosts(posts);
+};
+
+// Display posts
+function displayPosts(posts) {
+    postList.innerHTML = '';
+    posts.forEach((post, index) => {
+        const postElement = document.createElement("div");
+        postElement.classList.add("post");
+        postElement.innerHTML = `
+            <p>${post.content}</p>
+            <small>Posted by ${post.username}</small>
+        `;
+        postList.appendChild(postElement);
+    });
+}
+
+// Handle post submission
+postForm.addEventListener("submit", function(event) {
+    event.preventDefault();
+
+    const postText = postContent.value.trim();
+    if (postText !== "") {
+        const posts = JSON.parse(localStorage.getItem("posts")) || [];
+        
+        // Add new post to the posts array
+        const newPost = {
+            content: postText,
+            username: "Anonymous", // This can be dynamic later with user authentication
+            timestamp: new Date()
+        };
+
+        posts.push(newPost);
+
+        // Save the posts array to localStorage
+        localStorage.setItem("posts", JSON.stringify(posts));
+
+        // Reset the form and display the updated list
+        postContent.value = "";
+        displayPosts(posts);
+    }
+});
