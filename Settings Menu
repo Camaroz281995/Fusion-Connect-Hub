@@ -1,0 +1,66 @@
+import tkinter as tk
+from tkinter import ttk, messagebox
+
+class SettingsMenu:
+    def __init__(self, root):
+        self.root = root
+        self.root.title("Settings Menu")
+        
+        # Default settings
+        self.volume = 50
+        self.theme = "Light"
+        
+        # Create UI elements
+        self.create_widgets()
+        
+    def create_widgets(self):
+        # Volume Label and Scale
+        volume_label = tk.Label(self.root, text="Volume:")
+        volume_label.pack(pady=10)
+        
+        self.volume_scale = tk.Scale(self.root, from_=0, to=100, orient='horizontal', command=self.update_volume)
+        self.volume_scale.set(self.volume)
+        self.volume_scale.pack(pady=10)
+        
+        # Theme Selection
+        theme_label = tk.Label(self.root, text="Theme:")
+        theme_label.pack(pady=10)
+        
+        self.theme_var = tk.StringVar(value=self.theme)
+        self.light_theme_radio = tk.Radiobutton(self.root, text='Light', variable=self.theme_var, value='Light', command=self.update_theme)
+        self.dark_theme_radio = tk.Radiobutton(self.root, text='Dark', variable=self.theme_var, value='Dark', command=self.update_theme)
+        
+        self.light_theme_radio.pack(pady=5)
+        self.dark_theme_radio.pack(pady=5)
+        
+        # Apply and Reset Buttons
+        apply_button = tk.Button(self.root, text="Apply", command=self.apply_settings)
+        apply_button.pack(pady=20)
+
+        reset_button = tk.Button(self.root, text="Reset", command=self.reset_settings)
+        reset_button.pack(pady=5)
+        
+    def update_volume(self, value):
+        self.volume = int(value)
+        print(f"Volume set to: {self.volume}")  # Debug print
+
+    def update_theme(self):
+        self.theme = self.theme_var.get()
+        print(f"Theme set to: {self.theme}")  # Debug print
+
+    def apply_settings(self):
+        messagebox.showinfo("Settings Applied", f"Volume: {self.volume}\nTheme: {self.theme}")
+
+    def reset_settings(self):
+        self.volume = 50
+        self.theme = "Light"
+        self.volume_scale.set(self.volume)
+        self.theme_var.set(self.theme)
+        self.light_theme_radio.select()
+        print("Settings reset to default")  # Debug print
+
+if __name__ == "__main__":
+    root = tk.Tk()
+    settings_menu = SettingsMenu(root)
+    root.geometry("300x300")
+    root.mainloop()
