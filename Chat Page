@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fusion Connect - Chat</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <h1>Fusion Connect</h1>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="chat.html" class="active">Chat</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Chat Box Section -->
+    <section id="chatbox">
+        <h2>Chat</h2>
+        <div class="messages" id="messages">
+            <!-- Messages will go here -->
+        </div>
+
+        <!-- Send Message Form -->
+        <form id="message-form">
+            <input type="text" id="message-input" placeholder="Type your message..." required>
+            <button type="submit">Send</button>
+        </form>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Fusion Connect | All Rights Reserved</p>
+    </footer>
+
+    <script src="chat.js"></script>
+</body>
+</html>
+/* Chatbox Styles */
+#chatbox {
+    padding: 50px 20px;
+    text-align: center;
+}
+
+#chatbox h2 {
+    font-size: 32px;
+    margin-bottom: 20px;
+}
+
+#messages {
+    max-height: 300px;
+    overflow-y: scroll;
+    margin-bottom: 20px;
+    background-color: #f4f4f4;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+}
+
+.message {
+    background-color: #e0e0e0;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    text-align: left;
+    word-wrap: break-word;
+}
+
+#message-form {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+#message-input {
+    width: 80%;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+#message-form button {
+    padding: 10px 20px;
+    background-color: #f24d2e;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}// Create a simple chat functionality with local storage
+const messagesContainer = document.getElementById("messages");
+const messageForm = document.getElementById("message-form");
+const messageInput = document.getElementById("message-input");
+
+// Load previous messages from local storage if any
+function loadMessages() {
+    const messages = JSON.parse(localStorage.getItem("messages")) || [];
+    messagesContainer.innerHTML = "";
+    messages.forEach(message => {
+        const messageDiv = document.createElement("div");
+        messageDiv.classList.add("message");
+        messageDiv.textContent = message;
+        messagesContainer.appendChild(messageDiv);
+    });
+}
+
+// Save messages to local storage
+function saveMessage(message) {
+    const messages = JSON.parse(localStorage.getItem("messages")) || [];
+    messages.push(message);
+    localStorage.setItem("messages", JSON.stringify(messages));
+}
+
+// Handle message sending
+messageForm.addEventListener("submit", function(event) {
+    event.preventDefault();
+
+    const message = messageInput.value.trim();
+    if (message) {
+        saveMessage(message);
+        messageInput.value = ""; // clear the input field
+        loadMessages(); // reload messages to display the new one
+    }
+});
+
+// Initial load of messages
+loadMessages();
